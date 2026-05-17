@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HamaGames</title>
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+<style>
+
+/* ================= GLOBAL ================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:#050505;
+  color:white;
+  font-family:Segoe UI,sans-serif;
+  overflow-x:hidden;
+}
+
+button{
+  font-family:inherit;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:#0d0d14;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 40px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.logo{
+  font-size:34px;
+  font-weight:800;
+  background:linear-gradient(135deg,#00f5ff,#7b2ff7);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.nav-links{
+  display:flex;
+  gap:20px;
+}
+
+.nav-links button{
+  background:none;
+  border:none;
+  color:white;
+  cursor:pointer;
+  font-size:15px;
+  transition:.2s;
+}
+
+.nav-links button:hover{
+  color:#00f5ff;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+  min-height:85vh;
+  background:
+  linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.8)),
+  url('https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1600&auto=format&fit=crop');
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:40px;
+}
+
+.hero-content{
+  max-width:800px;
+}
+
+.hero h1{
+  font-size:90px;
+  margin-bottom:20px;
+}
+
+.hero p{
+  font-size:20px;
+  line-height:1.8;
+  color:rgba(255,255,255,.8);
+  margin-bottom:30px;
+}
+
+.hero button{
+  padding:18px 34px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg,#00f5ff,#7b2ff7);
+  color:white;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.hero button:hover{
+  transform:translateY(-3px);
+}
+
+/* ================= SECTION ================= */
+
+.section{
+  padding:80px 40px;
+}
+
+.section h2{
+  font-size:42px;
+  margin-bottom:40px;
+}
+
+/* ================= GAME GRID ================= */
+
+.games-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:30px;
+}
+
+.game-card{
+  background:#111;
+  border-radius:22px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.08);
+  transition:.3s;
+}
+
+.game-card:hover{
+  transform:translateY(-8px);
+}
+
+.game-card img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+}
+
+.game-content{
+  padding:22px;
+}
+
+.game-content h3{
+  font-size:28px;
+  margin-bottom:12px;
+}
+
+.game-content p{
+  color:rgba(255,255,255,.65);
+  line-height:1.7;
+  margin-bottom:22px;
+}
+
+.play-btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(135deg,#00f5ff,#7b2ff7);
+  color:white;
+  cursor:pointer;
+  font-weight:700;
+  font-size:15px;
+}
+
+/* ================= GAME AREA ================= */
+
+#gameArea{
+  display:none;
+  padding:40px;
+  background:#080808;
+}
+
+.game-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:30px;
+}
+
+.game-header h2{
+  font-size:38px;
+}
+
+.close-btn{
+  padding:12px 18px;
+  border:none;
+  border-radius:10px;
+  background:#ff004c;
+  color:white;
+  cursor:pointer;
+}
+
+.canvas-box{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+canvas{
+  background:#111;
+  border-radius:18px;
+  border:2px solid rgba(255,255,255,.08);
+}
+
+/* ================= TIC TAC TOE ================= */
+
+#ticTacToe{
+  display:none;
+  max-width:420px;
+  margin:auto;
+}
+
+.ttt-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:25px;
+}
+
+.ttt-cell{
+  height:120px;
+  background:#111;
+  border-radius:16px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:42px;
+  cursor:pointer;
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.ttt-info{
+  text-align:center;
+  font-size:24px;
+}
+
+/* ================= CLICKER ================= */
+
+#clickerGame{
+  display:none;
+}
+
+.clicker-wrap{
+  text-align:center;
+}
+
+#clickCount{
+  font-size:90px;
+  margin-bottom:20px;
+}
+
+#clickBtn{
+  width:240px;
+  height:240px;
+  border-radius:50%;
+  border:none;
+  background:linear-gradient(135deg,#00f5ff,#7b2ff7);
+  color:white;
+  font-size:32px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.08s;
+  box-shadow:0 20px 50px rgba(0,245,255,.25);
+}
+
+#timer{
+  margin-top:30px;
+  font-size:34px;
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+  text-align:center;
+  padding:35px;
+  border-top:1px solid rgba(255,255,255,.08);
+  color:rgba(255,255,255,.5);
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:900px){
+
+  .hero h1{
+    font-size:54px;
+  }
+
+  .hero p{
+    font-size:17px;
+  }
+
+  .navbar{
+    padding:20px;
+  }
+
+  .section{
+    padding:60px 20px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<div class="navbar">
+
+  <div class="logo">
+    HamaGames
+  </div>
+
+  <div class="nav-links">
+
+    <button onclick="scrollToGames()">
+      Games
+    </button>
+
+    <button onclick="closeGames()">
+      Close Game
+    </button>
+
+  </div>
+
+</div>
+
+<!-- ================= HERO ================= -->
+
+<div class="hero">
+
+  <div class="hero-content">
+
+    <h1>HamaGames</h1>
+
+    <p>
+      Play fully working browser games instantly.
+      Fast, smooth and modern gaming experience.
+    </p>
+
+    <button onclick="scrollToGames()">
+      🎮 Play Now
+    </button>
+
+  </div>
+
+</div>
+
+<!-- ================= GAMES ================= -->
+
+<div class="section" id="gamesSection">
+
+  <h2>🔥 Featured Games</h2>
+
+  <div class="games-grid">
+
+    <!-- SNAKE -->
+
+    <div class="game-card">
+
+      <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1000&auto=format&fit=crop">
+
+      <div class="game-content">
+
+        <h3>Snake Game</h3>
+
+        <p>
+          Eat food and survive as long as possible.
+        </p>
+
+        <button class="play-btn"
+        onclick="startSnake()">
+          Play Snake
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- TIC TAC TOE -->
+
+    <div class="game-card">
+
+      <img src="https://images.unsplash.com/photo-1526379095098-d400fd0bf935?q=80&w=1000&auto=format&fit=crop">
+
+      <div class="game-content">
+
+        <h3>Tic Tac Toe</h3>
+
+        <p>
+          Play classic Tic Tac Toe with your friend.
+        </p>
+
+        <button class="play-btn"
+        onclick="startTicTacToe()">
+          Play Tic Tac Toe
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- CLICKER -->
+
+    <div class="game-card">
+
+      <img src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?q=80&w=1000&auto=format&fit=crop">
+
+      <div class="game-content">
+
+        <h3>Click Speed Test</h3>
+
+        <p>
+          Test your clicking speed in 10 seconds.
+        </p>
+
+        <button class="play-btn"
+        onclick="startClicker()">
+          Play Clicker
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ================= GAME AREA ================= -->
+
+<div id="gameArea">
+
+  <!-- ================= SNAKE ================= -->
+
+  <div id="snakeGame" style="display:none;">
+
+    <div class="game-header">
+
+      <h2>🐍 Snake Game</h2>
+
+      <button class="close-btn"
+      onclick="closeGames()">
+        Close
+      </button>
+
+    </div>
+
+    <div class="canvas-box">
+
+      <canvas id="snakeCanvas"
+      width="500"
+      height="500">
+      </canvas>
+
+    </div>
+
+  </div>
+
+  <!-- ================= TIC TAC TOE ================= -->
+
+  <div id="ticTacToe">
+
+    <div class="game-header">
+
+      <h2>⭕ Tic Tac Toe ❌</h2>
+
+      <button class="close-btn"
+      onclick="closeGames()">
+        Close
+      </button>
+
+    </div>
+
+    <div class="ttt-info"
+    id="tttInfo">
+      Player X Turn
+    </div>
+
+    <div class="ttt-grid"
+    id="tttGrid">
+    </div>
+
+  </div>
+
+  <!-- ================= CLICKER ================= -->
+
+  <div id="clickerGame">
+
+    <div class="game-header">
+
+      <h2>⚡ Click Speed Test</h2>
+
+      <button class="close-btn"
+      onclick="closeGames()">
+        Close
+      </button>
+
+    </div>
+
+    <div class="clicker-wrap">
+
+      <h1 id="clickCount">
+        0
+      </h1>
+
+      <button id="clickBtn">
+        CLICK
+      </button>
+
+      <h2 id="timer">
+        Time: 10
+      </h2>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+
+<div class="footer">
+  © 2026 HamaGames — Fully Working Game Website
+</div>
+
+<script>
+
+/* ================= GENERAL ================= */
+
+function scrollToGames(){
+
+  document.getElementById("gamesSection")
+  .scrollIntoView({
+    behavior:"smooth"
+  });
+
+}
+
+function closeGames(){
+
+  document.getElementById("gameArea")
+  .style.display="none";
+
+  document.getElementById("snakeGame")
+  .style.display="none";
+
+  document.getElementById("ticTacToe")
+  .style.display="none";
+
+  document.getElementById("clickerGame")
+  .style.display="none";
+
+}
+
+/* ================= SNAKE ================= */
+
+let snakeLoop;
+
+function startSnake(){
+
+  closeGames();
+
+  document.getElementById("gameArea")
+  .style.display="block";
+
+  document.getElementById("snakeGame")
+  .style.display="block";
+
+  document.getElementById("snakeGame")
+  .scrollIntoView({
+    behavior:"smooth"
+  });
+
+  const canvas=
+  document.getElementById("snakeCanvas");
+
+  const ctx=
+  canvas.getContext("2d");
+
+  const box=20;
+
+  let snake=[
+    {x:9*box,y:10*box}
+  ];
+
+  let direction="RIGHT";
+
+  let food={
+    x:Math.floor(Math.random()*24)*box,
+    y:Math.floor(Math.random()*24)*box
+  };
+
+  let score=0;
+
+  document.onkeydown=function(event){
+
+    if(event.key==="ArrowLeft" &&
+    direction!=="RIGHT"){
+      direction="LEFT";
+    }
+
+    else if(event.key==="ArrowUp" &&
+    direction!=="DOWN"){
+      direction="UP";
+    }
+
+    else if(event.key==="ArrowRight" &&
+    direction!=="LEFT"){
+      direction="RIGHT";
+    }
+
+    else if(event.key==="ArrowDown" &&
+    direction!=="UP"){
+      direction="DOWN";
+    }
+
+  };
+
+  clearInterval(snakeLoop);
+
+  snakeLoop=setInterval(draw,100);
+
+  function draw(){
+
+    ctx.fillStyle="#111";
+
+    ctx.fillRect(0,0,500,500);
+
+    for(let i=0;i<snake.length;i++){
+
+      ctx.fillStyle=
+      i===0 ? "#00f5ff" : "#7b2ff7";
+
+      ctx.fillRect(
+        snake[i].x,
+        snake[i].y,
+        box,
+        box
+      );
+
+    }
+
+    ctx.fillStyle="#ff004c";
+
+    ctx.fillRect(food.x,food.y,box,box);
+
+    let snakeX=snake[0].x;
+    let snakeY=snake[0].y;
+
+    if(direction==="LEFT") snakeX-=box;
+    if(direction==="UP") snakeY-=box;
+    if(direction==="RIGHT") snakeX+=box;
+    if(direction==="DOWN") snakeY+=box;
+
+    if(snakeX===food.x &&
+    snakeY===food.y){
+
+      score++;
+
+      food={
+        x:Math.floor(Math.random()*24)*box,
+        y:Math.floor(Math.random()*24)*box
+      };
+
+    }else{
+
+      snake.pop();
+
+    }
+
+    let newHead={
+      x:snakeX,
+      y:snakeY
+    };
+
+    if(
+      snakeX<0 ||
+      snakeY<0 ||
+      snakeX>=500 ||
+      snakeY>=500 ||
+      collision(newHead,snake)
+    ){
+
+      clearInterval(snakeLoop);
+
+      alert("Game Over! Score: "+score);
+
+      return;
+
+    }
+
+    snake.unshift(newHead);
+
+    ctx.fillStyle="white";
+
+    ctx.font="22px Arial";
+
+    ctx.fillText(
+      "Score: "+score,
+      10,
+      25
+    );
+
+  }
+
+  function collision(head,array){
+
+    for(let i=0;i<array.length;i++){
+
+      if(
+        head.x===array[i].x &&
+        head.y===array[i].y
+      ){
+        return true;
+      }
+
+    }
+
+    return false;
+
+  }
+
+}
+
+/* ================= TIC TAC TOE ================= */
+
+let currentPlayer="X";
+
+let board=[
+  "","","",
+  "","","",
+  "","",""
+];
+
+function startTicTacToe(){
+
+  closeGames();
+
+  document.getElementById("gameArea")
+  .style.display="block";
+
+  document.getElementById("ticTacToe")
+  .style.display="block";
+
+  document.getElementById("ticTacToe")
+  .scrollIntoView({
+    behavior:"smooth"
+  });
+
+  currentPlayer="X";
+
+  board=[
+    "","","",
+    "","","",
+    "","",""
+  ];
+
+  const grid=
+  document.getElementById("tttGrid");
+
+  grid.innerHTML="";
+
+  for(let i=0;i<9;i++){
+
+    const cell=
+    document.createElement("div");
+
+    cell.classList.add("ttt-cell");
+
+    cell.dataset.index=i;
+
+    cell.onclick=()=>playTTT(i);
+
+    grid.appendChild(cell);
+
+  }
+
+  document.getElementById("tttInfo")
+  .innerHTML="Player X Turn";
+
+}
+
+function playTTT(index){
+
+  if(board[index]!==""){
+    return;
+  }
+
+  board[index]=currentPlayer;
+
+  document.querySelectorAll(".ttt-cell")[index]
+  .innerHTML=currentPlayer;
+
+  if(checkWinner()){
+
+    document.getElementById("tttInfo")
+    .innerHTML=
+    "🎉 Player "+currentPlayer+" Wins!";
+
+    return;
+
+  }
+
+  if(!board.includes("")){
+
+    document.getElementById("tttInfo")
+    .innerHTML="🤝 Draw!";
+
+    return;
+
+  }
+
+  currentPlayer=
+  currentPlayer==="X" ? "O" : "X";
+
+  document.getElementById("tttInfo")
+  .innerHTML=
+  "Player "+currentPlayer+" Turn";
+
+}
+
+function checkWinner(){
+
+  const wins=[
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [0,4,8],
+    [2,4,6]
+  ];
+
+  for(let combo of wins){
+
+    const[a,b,c]=combo;
+
+    if(
+      board[a] &&
+      board[a]===board[b] &&
+      board[a]===board[c]
+    ){
+      return true;
+    }
+
+  }
+
+  return false;
+
+}
+
+/* ================= CLICKER ================= */
+
+let clickCount=0;
+let timeLeft=10;
+let clickTimer;
+
+function startClicker(){
+
+  closeGames();
+
+  document.getElementById("gameArea")
+  .style.display="block";
+
+  document.getElementById("clickerGame")
+  .style.display="block";
+
+  document.getElementById("clickerGame")
+  .scrollIntoView({
+    behavior:"smooth",
+    block:"center"
+  });
+
+  clickCount=0;
+
+  timeLeft=10;
+
+  document.getElementById("clickCount")
+  .innerHTML="0";
+
+  document.getElementById("timer")
+  .innerHTML="Time: 10";
+
+  clearInterval(clickTimer);
+
+  const clickBtn=
+  document.getElementById("clickBtn");
+
+  clickBtn.focus();
+
+  clickBtn.onclick=function(){
+
+    if(timeLeft>0){
+
+      clickCount++;
+
+      document.getElementById("clickCount")
+      .innerHTML=clickCount;
+
+      clickBtn.style.transform=
+      "scale(0.90)";
+
+      clickBtn.style.boxShadow=
+      "0 10px 25px rgba(0,245,255,.45)";
+
+      setTimeout(()=>{
+
+        clickBtn.style.transform=
+        "scale(1)";
+
+        clickBtn.style.boxShadow=
+        "0 20px 50px rgba(0,245,255,.25)";
+
+      },80);
+
+    }
+
+  };
+
+  clickTimer=setInterval(()=>{
+
+    timeLeft--;
+
+    document.getElementById("timer")
+    .innerHTML=
+    "Time: "+timeLeft;
+
+    if(timeLeft<=0){
+
+      clearInterval(clickTimer);
+
+      clickBtn.blur();
+
+      setTimeout(()=>{
+
+        alert(
+          "⏰ Time Up!\n\n"+
+          "🔥 Your Final Score: "+
+          clickCount
+        );
+
+      },100);
+
+    }
+
+  },1000);
+
+}
+
+</script>
+
+</body>
+</html>
